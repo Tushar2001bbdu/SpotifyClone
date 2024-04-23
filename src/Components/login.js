@@ -3,7 +3,7 @@ import React from 'react'
 export default function login() {
     function handleClick(){
         const clientId="3f45d6257e6f444a89158b75c598b9cc"
-        const redirecturl="http://localhost:3000/"
+        const redirecturl="https://Tushar2001bbdu.github.io/"
        
         const scope=['user-read-email',
         'user-read-private',
