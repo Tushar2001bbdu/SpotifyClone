@@ -1,24 +1,37 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { useEffect, useState } from "react";
+
+import NodeState from './Context/NodeState'
+
+import Login from './Components/login';
+import Spotify from './Components/Spotify';
+import { BrowserRouter } from 'react-router-dom'
+
 
 function App() {
+  const[ token,setToken]=useState(null);
+  useEffect(()=>{
+    const hash = window.location.hash
+    if(hash){
+   const   Token=hash.substring(1).split('&')[0].split('=')[1]
+    setToken(Token)
+    localStorage.setItem('token',Token)
+    }
+  },[])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    
+     <div className='container' style= {{padding:"0%"}}>
+    <NodeState>
+      <BrowserRouter>
+      {token!=null ?<Spotify token={token}/>:<Login/>}
+      </BrowserRouter>
+    
+    </NodeState>
     </div>
+  
+   
+    
   );
 }
 
