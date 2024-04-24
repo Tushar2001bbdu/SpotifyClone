@@ -42,7 +42,7 @@ export default function ArtistsTopTracks(props) {
                   
                   </div>
                   <div className="play" style={{width:"10%"}}>
-                  <BsFillPlayCircleFill style={{ color: "black", width: "60%", height: "50%" }} onClick={() => { con.play(element.uri) }} />
+                  <BsFillPlayCircleFill style={{ color: "black", width: "4vw", height: "5vh" }} onClick={() => { con.play(element.uri) }} />
                   </div>
 
                 </div>
