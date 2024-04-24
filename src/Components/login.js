@@ -3,7 +3,7 @@ import React from 'react'
 export default function login() {
     function handleClick(){
         const clientId="ce6449902069416998100e188a2e749a"
-        const redirecturl="ht"
+        const redirecturl="https://tushar2001bbdu.github.io/SpotifyClone/"
        
         const scope=['user-read-email',
         'user-read-private',
