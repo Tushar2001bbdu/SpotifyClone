@@ -28,9 +28,7 @@ export default function PlayerControls() {
   if (context.track != null) {
     return (
       <div className='container' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'white' ,marginLeft:"3%"}}>
-        <div className="shuffle">
-          <BsShuffle style={{ height: '2rem', width: '4rem' }} />
-        </div>
+        
         <div className="audio-player">
           <ReactH5AudioPlayer
           style={{"backgroundColor":"black","color":"white"}}

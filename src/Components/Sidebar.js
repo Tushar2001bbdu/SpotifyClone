@@ -19,9 +19,7 @@ export default function Sidebar() {
       <div className="link my-3" onMouseOver={color}>
       <BiHome style={{marginRight:"5%",color:'white',textDecoration:'none'}}/><Link  className="link"style={{color:'white',textDecoration:'none'}} to="home">Home</Link> 
       </div>
-      <div className="link my-3" onMouseOver={color}>
-      <FaMagnifyingGlass style={{marginRight:"5%",color:'white',textDecoration:'none'}} /><Link className="link" style={{color:'white',textDecoration:'none'}} to="list"> Search</Link>
-      </div>
+      
       <div className="link my-3" onMouseOver={color}>
        <MdOutlineLibraryMusic style={{marginRight:"5%",color:'white',textDecoration:'none'}} /><Link  className="link" style={{color:'white',textDecoration:'none'}} to="list">Your Libary</Link>
       </div>
