@@ -34,8 +34,8 @@ function search(e){
         </form>
        
         {con.check==true &&con.search!=null  && <div className="results my-1" style={{overflowY: 'scroll',scrollbarColor:"#2F4F4F #2F4F4F",height:"160%"}}>
-        {con.check==true &&con.search!=null  && (con.search.albums.items.map((element)=>{
-      return(<SearchResults  key={element.id} element={element} name={element.name} image={element.images[2].url} style={{width:"100%",height:"100%"}}/>)
+        {con.check==true &&con.search!=null  && (con.search.tracks.items.map((element)=>{
+      return(<SearchResults  key={element.id} element={element} name={element.name} image={element.album.images[2].url} style={{width:"100%",height:"100%"}}/>)
      })) }
         </div>}
         

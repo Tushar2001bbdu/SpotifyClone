@@ -24,6 +24,7 @@ export default function PlayerControls() {
   const playPreviousTrack = () => {
     context.getPreviousTrack();
   };
+  
 
   if (context.track != null) {
     return (

@@ -6,7 +6,7 @@ return(
     
     <div className="container row my-2 text-center" style={{backgroundColor:"#008B8B",color:"white"}}>
        <div className="col" style={{"width":"auto"}}>
-    <a className="link" onClick={()=>{con.playTrack(props.element.uri);}} style={{color:"white",textDecoration:"none"}} >{props.name}</a>
+    <a className="link" onClick={()=>{con.play(props.element.uri);}} style={{color:"white",textDecoration:"none"}} >{props.name}</a>
        </div>
        <div className="col" style={{"width":"20%"}}>
       <img src= {props.image} alt=""/>

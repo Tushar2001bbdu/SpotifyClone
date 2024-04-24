@@ -5,6 +5,9 @@ import { PiNutFill } from "react-icons/pi";
 export default function CurrentTrack() {
   let token = localStorage.getItem("token");
   const con = useContext(NodeState);
+  useEffect(()=>{
+    con.getCurrentTrack()
+  },[con.track])
   
  if(con.track!=null){
     return (
@@ -25,7 +28,7 @@ export default function CurrentTrack() {
           />
         </div>
         <div className="details" style={{ width: "70%" }}>
-          <div className="name">{con.track==undefined?"":con.track.item.name}</div>
+          <div className="name">{con.track.name==undefined?"":con.track.item.name}</div>
           <div className="artists">
             {con.track.item!=null && con.track.item.artists.map((art) => {
               return <span></span>;

@@ -108,7 +108,7 @@ SETRECENT(res)
   setRecent(res)
  }
  const getSearchResults=async(query)=>{
-  const response=await fetch( `https://api.spotify.com/v1/search?query=${query}&type=album&limit=10&offset=0`,{
+  const response=await fetch( `https://api.spotify.com/v1/search?query=${query}&type=track&limit=10&offset=0`,{
     
     method: 'GET',
     headers: {
@@ -181,14 +181,30 @@ SETRECENT(res)
     {method:"PUT",headers:{
             "Authorization":'Bearer '+localStorage.getItem('token'),
             "Content-Type":"application/json"
-           },body:JSON.stringify({"context_uri":context_uri})
+           },body:JSON.stringify({"uris":[uri]})
         
       
         
       })
+      try{
+        let response=await fetch('https://api.spotify.com/v1/me/player/currently-playing',        
+        {headers:{
+                "Authorization":'Bearer '+localStorage.getItem('token'),
+                "Content-Type":"application/json",
+            
+            }
+        })
+       
+        const res=await response.json()
+        setTrack(res)}
+        catch(error){
+          console.log(error);
+        
+      
+      }
 
-getCurrentTrack()
-Set()
+
+
    }
    const play=async(uri)=>{
     await fetch('https://api.spotify.com/v1/me/player/play',  
