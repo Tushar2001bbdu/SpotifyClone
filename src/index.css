@@ -17,6 +17,15 @@ body {
   font-weight:13px;
   font-style: normal;
 }
-
+.link:hover{
+  font-weight: bolder;
+  cursor:"pointer";
+}
+*:focus {
+  outline: none;
+}
+.card{
+  margin:"10%";
+}
 
 

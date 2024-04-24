@@ -47,10 +47,10 @@ export default function Spotify(props) {
   },[])
   return (
     <>
-    <div className="container" style={{padding:"0%"}}>
-<div className='container' style={{marginLeft:"0%",height:"80%",width:"100%",background: "linear-gradient(to bottom, #008B8B, #2F4F4F)",display:"flex",flexDirection:"row",padding:"0%"}}>
-      <div className="spotify" style={{display:"flex",alignSelf:"flex-start",width:"20%"}}>
-        <Sidebar style={{height:"100em"}}/>
+    <div className="container" style={{padding:"0%",height:"auto"}}>
+<div className='container' style={{marginLeft:"0%",height:"auto",width:"100%",background: "linear-gradient(to bottom, #008B8B, #2F4F4F)",display:"flex",flexDirection:"row",padding:"0%"}}>
+      <div className="spotify" style={{display:"flex",alignSelf:"flex-start",width:"20%",backgroundColor:"black"}}>
+        <Sidebar style={{"marginTop":"2vh"}}/>
         </div>
         <div className="body" style={{width:"88%",marginLeft:"0%"}}>{datai!=null && <Navbar name={datai.display_name} style={{height:"30%"}}/>}
      
@@ -61,16 +61,18 @@ export default function Spotify(props) {
           <Route path="/" element={<Home />}/>
           <Route index element={<Home />} />
           <Route path="home" element={<Home />} />
-          <Route path="recply" element={<RecentlyPlayed />} />
-          <Route path="recommend" element={<Recommend/>} />
-          <Route path="favArt" element={<FavouriteArtists/>} />
-          <Route path="toptracks" element={<ArtistsTopTracks/>} />
-          <Route path="content" element={<Body/>} />
+          <Route exact path="home/recply" element={<RecentlyPlayed />} />
+          <Route eaxct path="home/recommend" element={<Recommend/>} />
+          <Route exact path="home/favArt" element={<FavouriteArtists/>} />
+          <Route exact path="home/toptracks" element={<ArtistsTopTracks/>} />
+          <Route exact path="list/content" element={<Body/>} />
           <Route path="list" element={<PlaylistsList/>} />
-          <Route path="data" element={<Body/>} />
+         
+        
           <Route path="playlists" element={con.id!=null &&
-            <Body style={{"marginTop":"2vh",height:"60vh"}} />} />
+            <Body style={{"marginTop":"2%",height:"auto"}} />} />
           </Routes>
+          {con.playlistsData!=null && <Body/>}
           
           
               </div>} 

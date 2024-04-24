@@ -14,6 +14,7 @@ export default function CurrentTrack() {
           display: "flex",
           flexDirection: "row",
           justifyItems: "center",
+          margin:"5%"
         }}
       >
         <div className="image" style={{ width: "30%" }}>
@@ -33,6 +34,13 @@ export default function CurrentTrack() {
         </div>
       </div>
     );
+  }
+  else{
+    return(
+      <div className="container text-light text-center" style={{width:"100vw"}}>
+        No track is getting currently played OR none of your spotify devices is currently active
+      </div>
+    )
   }
 
 }

@@ -23,6 +23,7 @@ export default function NodeState(props) {
   const[artistId,setartistId]=useState(null)
   const[snapId,setsnapId]=useState(null)
   const[playlistData,setPlaylistData]=useState(null)
+  const[context_uri,setUri]=useState(null)
 
 useEffect(()=>{if(localStorage.getItem('token')!=null){getCurrentTrack() ;getRecentlyPlayed();GETRECENTLYPLAYED();getFavArtists();getPlaylistData();}},[localStorage.getItem('token')])
   const getCurrentTrack=async()=>{
@@ -43,10 +44,11 @@ useEffect(()=>{if(localStorage.getItem('token')!=null){getCurrentTrack() ;getRec
     
   
   }}
-const setId=(id,snap_id)=>{
+const setId=(id,snap_id,uri)=>{
 setid(id)
 setsnapId(snap_id)
-getPlaylistData()
+getPlaylists(id)
+setUri(uri)
 }
  const pauseCurrentTrack=async()=>{
   await fetch('https://api.spotify.com/v1/me/player/pause',        
@@ -149,7 +151,7 @@ SETRECENT(res)
    }
     
    
-   const playPlaylists=async(uri)=>{
+   const playPlaylists=async()=>{
     const response =await fetch(devicesUrl, {
       method: 'GET',
       headers: {
@@ -161,13 +163,13 @@ SETRECENT(res)
    
    
     const res=await response.json()
-   
-    
+    pauseCurrentTrack()
+    console.log(context_uri)
     await fetch('https://api.spotify.com/v1/me/player/play',  
     {method:"PUT",headers:{
             "Authorization":'Bearer '+localStorage.getItem('token'),
             "Content-Type":"application/json"
-           },body:JSON.stringify({"context_uri":uri})
+           },body:JSON.stringify({"context_uri":context_uri})
         
       
         
@@ -179,7 +181,7 @@ SETRECENT(res)
     {method:"PUT",headers:{
             "Authorization":'Bearer '+localStorage.getItem('token'),
             "Content-Type":"application/json"
-           },body:JSON.stringify({"context_uri":uri})
+           },body:JSON.stringify({"context_uri":context_uri})
         
       
         
@@ -223,7 +225,9 @@ getCurrentTrack()
 
 
   }
-
+const removePlaylists=async()=>{
+  
+}
     const getPreviousTrack=async()=>{
       
       
@@ -327,15 +331,28 @@ getCurrentTrack()
             },
           });
           const jso = await response.json();
-    
+           console.log(jso)
           setPD(jso);
         };
-        const getPlaylists = async () => {
+        const addPlaylist=async(id,name,description,scope)=>{
+          await fetch(`https://api.spotify.com/v1/users/${id}/playlists`, {method:"POST",
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+              "Content-Type": "application/json",
+            },body:JSON.stringify({
+              "name": name,
+    "description": description,
+    "public":scope
+            })
+          });
+          
+        }
+        const getPlaylists = async (id) => {
     
       
           
           const response = await fetch(
-            `https://api.spotify.com/v1/playlists/${id}`,
+            `https://api.spotify.com/v1/playlists/${id}/tracks`,
             {
               headers: {
                 Authorization: "Bearer " + localStorage.getItem("token"),
@@ -345,6 +362,7 @@ getCurrentTrack()
           );
           const parsedData = await response.json();
           setPlaylistData(parsedData);
+          console.log(parsedData)
     
           
         };
@@ -354,7 +372,7 @@ getCurrentTrack()
     
   return (
     
-    <nodeContext.Provider value={{track,getCurrentTrack,getPreviousTrack,getNextTrack,playCurrentTrack,getPlayBackState,pauseCurrentTrack,playPlaylists,setId,id,recent,getSearchResults,search,check,playTrack,addPlaylistItems,removePlaylistItems,logout,RECENT,artists,play,Set,toptra,setArtistsId,pD,snapId,playlistData}}>
+    <nodeContext.Provider value={{track,getCurrentTrack,getPreviousTrack,getNextTrack,playCurrentTrack,getPlayBackState,pauseCurrentTrack,playPlaylists,setId,id,recent,getSearchResults,search,check,playTrack,addPlaylistItems,removePlaylistItems,logout,RECENT,artists,play,Set,toptra,setArtistsId,pD,snapId,playlistData,addPlaylist}}>
     {props.children}
   </nodeContext.Provider>
       

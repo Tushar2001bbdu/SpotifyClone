@@ -1,67 +1,55 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { BsPauseCircleFill, BsPlayCircleFill, BsShuffle } from 'react-icons/bs';
+import { BsShuffle } from 'react-icons/bs';
 import { CgPlayTrackNext, CgPlayTrackPrev } from 'react-icons/cg';
-import NodeContext from '../Context/nodeContext'; // Assuming your context is named NodeContext
+import NodeContext from '../Context/nodeContext';
+import ReactH5AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
 
 export default function PlayerControls() {
-  const context = useContext(NodeContext); // Renamed from 'con' for clarity
+  const context = useContext(NodeContext);
   const [isPlaying, setIsPlaying] = useState(false);
-  let track=null
-  var url="" 
 
-
-  const togglePlay = () => {
-   
-      context.playCurrentTrack(); // Assuming you have a function to resume playback in your context
-    
-    setIsPlaying(!isPlaying);
-  };
+  useEffect(() => {
+    if (context.track) {
+      setIsPlaying(true);
+    } else {
+      setIsPlaying(false);
+    }
+  }, [context.track]);
 
   const playNextTrack = () => {
-  
     context.getNextTrack();
-     // Assuming you have a function to play the next track in your context
   };
 
   const playPreviousTrack = () => {
     context.getPreviousTrack();
-     // Assuming you have a function to play the previous track in your context
   };
-  const playTrack = () => {
-    setIsPlaying(true)
-    context.playCurrentTrack(); // Assuming you have a function to play the previous track in your context
-  };
-  const pauseTrack = () => {
-    setIsPlaying(false)
-    context.pauseCurrentTrack(); // Assuming you have a function to play the previous track in your context
-  };
-  
-function getData(){
 
-if(context.track!=null){
-  return (
-    
-    <div className='container' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', height: '100%', color: 'white' }}>
-      <div className="shuffle">
-        <BsShuffle style={{ height: '2rem', width: '4rem' }} />
+  if (context.track != null) {
+    return (
+      <div className='container' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'white' ,marginLeft:"3%"}}>
+        <div className="shuffle">
+          <BsShuffle style={{ height: '2rem', width: '4rem' }} />
+        </div>
+        <div className="audio-player">
+          <ReactH5AudioPlayer
+          style={{"backgroundColor":"black","color":"white"}}
+            autoPlay
+            src={context.track.item.preview_url}
+            onPlay={() => setIsPlaying(true)}
+            onPause={() => setIsPlaying(false)}
+            
+            
+            // Other props like volume, loop, etc.
+          />
+        </div>
+        <div className="controls" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <CgPlayTrackPrev style={{ height: '3rem', width: '3rem', marginRight: '1rem' }} onClick={playPreviousTrack} alt="play previous track" />
+          <CgPlayTrackNext style={{ height: '3rem', width: '3rem', marginLeft: '1rem' }} onClick={playNextTrack} alt="play next track" />
+        </div>
       </div>
-      <div className="previous">
-        <CgPlayTrackPrev style={{ height: '2rem', width: '4rem' }} onClick={playPreviousTrack} />
-      </div>
-      {context.track!=null &&    <audio controls style={{backgroundColor:"black",color:"white"}} autoPlay={isPlaying} src={context.track.item.preview_url} >
- 
-</audio>}
-    
-      <div className="next">
-        <CgPlayTrackNext style={{ height: '2rem', width: '4rem' }} onClick={playNextTrack} />
-      </div>
-    </div>
-  );
+    );
+  } else {
+    return null;
+  }
 }
- }
-if(context.track!=null){
-  return getData()
-}}
-
- 
-
